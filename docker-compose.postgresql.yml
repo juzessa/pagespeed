@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:16.0-alpine3.18
+    container_name: postgresql-container
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    networks:
+      - postgres-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: 5
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${POSTGRES_DATA}
+
+networks:
+  postgres-net:
+    driver: bridge
