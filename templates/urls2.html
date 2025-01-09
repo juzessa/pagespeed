@@ -2,7 +2,7 @@
 {% block content %}
 <main class="flex-grow-1">
     <div class="container-lg mt-3">
-      <h1>Сайт: https://zichtbaarnederlands.nl</h1>
+      <h1>Сайт: {{ site.url }}</h1>
 
     
   <div class="table-responsive">
@@ -10,15 +10,15 @@
       <tbody>
         <tr>
           <td>ID</td>
-          <td>1</td>
+          <td>{{ site.id }}</td>
         </tr>
         <tr>
           <td>Имя</td>
-          <td>https://zichtbaarnederlands.nl</td>
+          <td>{{ site.url }}</td>
         </tr>
         <tr>
           <td>Дата создания</td>
-          <td>2025-01-08</td>
+          <td>{{ site.date }}</td>
         </tr>
       </tbody>
     </table>
@@ -33,7 +33,7 @@
     <table class="table table-bordered table-hover mt-2" data-test="checks">
     <thead>
       <tr>
-        <th>ID</th>
+        <th>1</th>
         <th>Код ответа</th>
         <th>h1</th>
         <th>title</th>
