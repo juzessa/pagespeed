@@ -1,11 +1,10 @@
 from datetime import datetime
-from typing import Optional
 
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, HttpUrl, Field
 
 app = FastAPI()
 
@@ -17,7 +16,7 @@ templates = Jinja2Templates(directory="templates")
 class Site(BaseModel):
     id: int
     url: HttpUrl
-    date: Optional[datetime] = datetime.now()
+    date: datetime = Field(default_factory=datetime.now().date)
 
 
 sites = {}
