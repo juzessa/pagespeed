@@ -15,7 +15,25 @@
     </tr>
     </thead>
     <tbody>
-      
+      {% for item in sites %}
+      <tr>
+          <th>{{ item.id }}</th>
+          <th>{{ item.name }}</th>
+          
+          {% if item.last_checked %}
+              <th>{{ item.last_checked.strftime('%Y-%m-%d') }}</th>
+          {% else %}
+              <th></th>  
+          {% endif %}
+          
+          {% if item.status_code %}
+              <th>{{ item.status_code }}</th>
+          {% else %}
+              <th></th> 
+          {% endif %}
+      </tr>
+  {% endfor %}
+  
     </tbody>
   </table>
 </div>
