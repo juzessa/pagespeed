@@ -8,6 +8,7 @@ dependencies = [
     "beautifulsoup4>=4.12.3",
     "certifi>=2024.12.14",
     "fastapi[all]>=0.103.2",
+    "flake8>=7.1.1",
     "psycopg2-binary>=2.9.10",
     "python-dotenv>=1.0.1",
     "requests>=2.32.3",

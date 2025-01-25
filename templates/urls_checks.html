@@ -1,9 +1,7 @@
-{% extends "base.html" %}
-{% block content %}
-    <div class="container-lg mt-3">
-      <h1>Сайт: {{ site.name }}</h1>
+{% extends "base.html" %} {% block content %}
+<div class="container-lg mt-3">
+  <h1>Сайт: {{ site.name }}</h1>
 
-    
   <div class="table-responsive">
     <table class="table table-bordered table-hover text-nowrap" data-test="url">
       <tbody>
@@ -23,38 +21,35 @@
     </table>
   </div>
 
-    <h2 class="mt-5 mb-3">Проверки</h2>
-    <form method="post" action="/urls/{{ site.id }}/checks">
-    <input type="submit" class="btn btn-primary" value="Запустить проверку">
-    </form>
-    
+  <h2 class="mt-5 mb-3">Проверки</h2>
+  <form method="post" action="/urls/{{ site.id }}/checks">
+    <input type="submit" class="btn btn-primary" value="Запустить проверку" />
+  </form>
+
   <div>
     <table class="table table-bordered table-hover mt-2" data-test="checks">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Код ответа</th>
-        <th>h1</th>
-        <th>title</th>
-        <th>description</th>
-        <th>Дата создания</th>
-      </tr>
-      {% for item in checks %}
-      <tr>
-        <th>{{ loop.index }} </th>
-        <th>{{ item.status_code }}</th>
-        <th>{{ item.h1 }}</th>
-        <th>{{ item.title}}</th>
-        <th>{{ item.description }}</th>
-        <th>{{ item.created_at.strftime('%Y-%m-%d') }}</th>
-        {% endfor %}
-      </tr>
-    </thead>
-      <tbody>
-    
-    </tbody>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Код ответа</th>
+          <th>h1</th>
+          <th>title</th>
+          <th>description</th>
+          <th>Дата создания</th>
+        </tr>
+        {% for item in checks %}
+        <tr>
+          <th>{{ loop.index }}</th>
+          <th>{{ item.status_code }}</th>
+          <th>{{ item.h1 }}</th>
+          <th>{{ item.title}}</th>
+          <th>{{ item.description }}</th>
+          <th>{{ item.created_at.strftime('%Y-%m-%d') }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
   </div>
-
-    </div>
-  {% endblock %}
+</div>
+{% endblock %}

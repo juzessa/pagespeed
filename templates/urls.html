@@ -1,42 +1,39 @@
-{% extends "base.html" %}
-{% block content %}
-    <div class="container-lg mt-3">
-      <h1>Сайты</h1>
+{% extends "base.html" %} {% block content %}
+<div class="container-lg mt-3">
+  <h1>Сайты</h1>
 
-    
-<div class="table-responsive">
-  <table class="table table-bordered table-hover text-nowrap" data-test="urls">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Имя</th>
-      <th>Последняя проверка</th>
-      <th>Код ответа</th>
-    </tr>
-    </thead>
-    <tbody>
-      {% for item in sites %}
-      <tr>
+  <div class="table-responsive">
+    <table
+      class="table table-bordered table-hover text-nowrap"
+      data-test="urls"
+    >
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Имя</th>
+          <th>Последняя проверка</th>
+          <th>Код ответа</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in sites %}
+        <tr>
           <th>{{ item.id }}</th>
           <th>{{ item.name }}</th>
-          
-          {% if item.last_checked %}
-              <th>{{ item.last_checked.strftime('%Y-%m-%d') }}</th>
-          {% else %}
-              <th></th>  
-          {% endif %}
-          
-          {% if item.status_code %}
-              <th>{{ item.status_code }}</th>
-          {% else %}
-              <th></th> 
-          {% endif %}
-      </tr>
-  {% endfor %}
-  
-    </tbody>
-  </table>
-</div>
 
-    </div>
+          {% if item.last_checked %}
+          <th>{{ item.last_checked.strftime('%Y-%m-%d') }}</th>
+          {% else %}
+          <th></th>
+          {% endif %} {% if item.status_code %}
+          <th>{{ item.status_code }}</th>
+          {% else %}
+          <th></th>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}
