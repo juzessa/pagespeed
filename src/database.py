@@ -1,19 +1,17 @@
 import psycopg2
-import requests
 
 from src.config import (POSTGRES_DB, POSTGRES_PASSWORD, POSTGRES_PORT,
                         POSTGRES_USER)
 
 
 def get_db_connect():
-    connect = psycopg2.connect(
+    return psycopg2.connect(
         user=POSTGRES_USER,
         password=POSTGRES_PASSWORD,
         port=POSTGRES_PORT,
         dbname=POSTGRES_DB,
         host='localhost'
     )
-    return connect
 
 
 def get_urls():

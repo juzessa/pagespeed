@@ -1,9 +1,8 @@
 from datetime import datetime
-from typing import Optional, Union
+from typing import Optional
 from urllib.parse import urlparse, urlunparse
 
-from pydantic import (BaseModel, Field, HttpUrl, ValidationError,
-                      field_validator)
+from pydantic import BaseModel, Field, HttpUrl, field_validator
 
 
 class Site(BaseModel):
@@ -12,20 +11,19 @@ class Site(BaseModel):
     created_at: Optional[datetime] = Field(default_factory=datetime.now().date)
 
     @field_validator('name')
-    def name_length(cls, name):
+    def name_length(self, name):
         if len(name) > 255:
             raise ValueError('URL не должен быть длиннее 255 символов')
         return name
 
     @field_validator('name')
-    def name_valid(cls, name):
+    def name_valid(self, name):
         try:
             url = urlparse(str(name))
             url = url._replace(path=url.path.rstrip('/'))
             return urlunparse(url)
         except Exception as e:
             raise ValueError("Некорректный URL") from e
-
 
 
 class Check(BaseModel):
