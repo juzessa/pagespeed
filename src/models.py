@@ -11,13 +11,13 @@ class Site(BaseModel):
     created_at: Optional[datetime] = Field(default_factory=datetime.now().date)
 
     @field_validator('name')
-    def name_length(self, name):
+    def name_length(cls, name):
         if len(name) > 255:
             raise ValueError('URL не должен быть длиннее 255 символов')
         return name
 
     @field_validator('name')
-    def name_valid(self, name):
+    def name_valid(cls, name):
         try:
             url = urlparse(str(name))
             url = url._replace(path=url.path.rstrip('/'))
