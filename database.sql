@@ -1,7 +1,7 @@
 create table urls
 (
 	id serial primary key,
-	name varchar,
+	name varchar(255),
 	created_at default current_timestamp
 );
 

@@ -19,7 +19,7 @@
         {% for item in sites %}
         <tr>
           <th>{{ item.id }}</th>
-          <th>{{ item.name }}</th>
+          <th><a href="/urls/{{ item.id }}">{{ item.name }}</a></th>
 
           {% if item.last_checked %}
           <th>{{ item.last_checked.strftime('%Y-%m-%d') }}</th>

@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 <div class="container-lg mt-3">
   <h1>Сайт: {{ site.name }}</h1>
 
@@ -22,33 +23,35 @@
   </div>
 
   <h2 class="mt-5 mb-3">Проверки</h2>
+  
   <form method="post" action="/urls/{{ site.id }}/checks">
     <input type="submit" class="btn btn-primary" value="Запустить проверку" />
   </form>
 
-  <div>
-    <table class="table table-bordered table-hover mt-2" data-test="checks">
+  <div class="table-responsive mt-3">
+    <table class="table table-bordered table-hover" data-test="checks">
       <thead>
         <tr>
-          <th></th>
+          <th>#</th>
           <th>Код ответа</th>
-          <th>h1</th>
-          <th>title</th>
-          <th>description</th>
+          <th>H1</th>
+          <th>Title</th>
+          <th>Description</th>
           <th>Дата создания</th>
         </tr>
+      </thead>
+      <tbody>
         {% for item in checks %}
         <tr>
-          <th>{{ loop.index }}</th>
-          <th>{{ item.status_code }}</th>
-          <th>{{ item.h1 }}</th>
-          <th>{{ item.title}}</th>
-          <th>{{ item.description }}</th>
-          <th>{{ item.created_at.strftime('%Y-%m-%d') }}</th>
-          {% endfor %}
+          <td>{{ loop.index }}</td>
+          <td>{{ item.status_code }}</td>
+          <td>{{ item.h1 }}</td>
+          <td>{{ item.title }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.created_at.strftime('%Y-%m-%d') }}</td>
         </tr>
-      </thead>
-      <tbody></tbody>
+        {% endfor %}
+      </tbody>
     </table>
   </div>
 </div>

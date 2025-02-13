@@ -61,21 +61,9 @@ def read_urls(request: Request):
     return None
 
 
-def site_access(name: HttpUrl) -> int:
-    try:
-        response = requests.get(name)
-        response.raise_for_status()
-        status_code = response.status_code
-        return response, status_code
-
-    except RequestException as e:
-        raise RequestException('Cайт недоступен') from e
-
-
 @urls.post("/")
 def create_url(request: Request, url: HttpUrl = Form(...)):
     try:
-        response, _ = site_access(url)
         site = Site(name=url)
         addsite = post_url(site.name)
         if addsite is None:
@@ -86,7 +74,7 @@ def create_url(request: Request, url: HttpUrl = Form(...)):
             f"/urls/{url_id}?message={message}",
             status_code=303)
 
-    except (ValueError, RequestException):
+    except ValueError:
         return RedirectResponse(
             "/?message=Убедитесь, что URL доступен",
             status_code=303)
@@ -126,18 +114,40 @@ def get_url(request: Request, url_id: int):
         return RedirectResponse(f"/?message={str(e)}", status_code=303)
 
 
-def parsing(response) -> Tuple[str, ...]:
-    parse = BeautifulSoup(response.content, 'html.parser')
-    h1_content, title_content, description_content = parse.find(
-        'h1'), parse.find('title'), parse.find(
-            'meta', attrs={'name': 'description'})
-    h1 = h1_content.text if h1_content else None
-    title = title_content.text if title_content else None
-    description = (
-        description_content['content'] if description_content else None
-    )
-    return h1, title, description
+def parsing(response) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+    try:
+        parse = BeautifulSoup(response.content, 'html.parser')
 
+        h1_content = parse.find('h1')
+        title_content = parse.find('title')
+        description_content = parse.find(
+                'meta', attrs={'name': 'description'})
+        
+        h1 = h1_content.text if h1_content else None
+        title = title_content.text if title_content else None
+        description = (
+            description_content['content'] if description_content else None
+        )
+        return h1, title, description
+    
+    except AttributeError as e:
+        print(f"Ошибка при извлечении данных: {e}")
+        return None, None, None
+    
+    except Exception as e:
+        print(f"Необработанная ошибка: {e}")
+        return None, None, None
+
+
+def site_access(name: HttpUrl) -> Tuple[requests.Response, int]:
+    try:
+        with requests.get(name, timeout=10) as response:
+            response.raise_for_status()
+            return response, response.status_code
+
+    except RequestException as e:
+        raise RequestException('Cайт недоступен') from e
+    
 
 @urls.post("/{url_id}/checks")
 def post_check_url(request: Request, url_id: int):
@@ -151,7 +161,7 @@ def post_check_url(request: Request, url_id: int):
         if checks:
             return RedirectResponse(f"/urls/{url_id}", status_code=303)
 
-    except requests.exceptions.RequestException as e:
+    except RequestException as e:
         return RedirectResponse(
             f"/urls/{url_id}?message={str(e)}",
             status_code=303)
