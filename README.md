@@ -5,10 +5,10 @@ pagespeed
 
 Анализатор страниц
 
-Технологии
+Технологии:
 
 Язык программирования: Python
-Фреймворк: [Если используется, например, Flask, Django и т. д.]
+Фреймворк: FastAPI
 
 Установка
 
@@ -20,5 +20,25 @@ git clone https://github.com/juzessa/pagespeed.git
 Перейдите в папку проекта:
 
 cd pagespeed
+
+Установите uv:
+
+pip install uv
+
+Сoздайте виртуальное окружение:
+
+uv venv
+
+Установите зависимости:
+
+uv sync
+
+Запустите контейнер:
+
+make postgres-up
+
+Запустите проект:
+
+make start
 
 
