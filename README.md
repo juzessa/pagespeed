@@ -7,8 +7,7 @@ pagespeed
 
 Технологии:
 
-Язык программирования: Python
-Фреймворк: FastAPI
+Python, FastAPI
 
 Установка
 
