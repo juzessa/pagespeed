@@ -2,7 +2,7 @@ create table urls
 (
 	id serial primary key,
 	name varchar(255),
-	created_at default current_timestamp
+	created_at timestamp default current_timestamp
 );
 
 create table url_checks

@@ -55,8 +55,7 @@ def read_urls(request: Request):
         for id, name in get_urls()
         for last_checked, status_code in [get_last_checked_code(id)]
     ][::-1]
-    if sites:
-        return templates.TemplateResponse(
+    return templates.TemplateResponse(
             "urls.html", {"request": request, "sites": sites})
     return None
 
