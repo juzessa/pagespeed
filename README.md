@@ -22,7 +22,7 @@ cd pagespeed
 
 Установите uv:
 
-pip install uv
+pipx install uv
 
 Сoздайте виртуальное окружение:
 
